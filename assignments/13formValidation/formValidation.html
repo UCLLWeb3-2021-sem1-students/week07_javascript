@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validating Password</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<style>
+    div#container form {
+        width: 100%;
+        display: grid;
+        grid-template-columns: [label] 1fr [input] 1fr [message] 2fr;
+        grid-column-gap: 1em;
+        grid-row-gap: 1em;
+        justify-items: end;
+    }
+
+    div#container form label {
+        grid-column: label/input;
+        line-height: 1.7em;
+    }
+    div#container form input {
+        grid-column: input/message;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    div#container form span {
+        grid-column: message;
+        width: 100%;
+        line-height: 1.7em;
+        font-size: 70%;
+        padding: 3px;
+    }
+</style>
+<body>
+<div id="container">
+    <h1>Form Validation</h1>
+    <form action="#">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$">
+
+            <label for="password">Choose a password</label>
+            <input type="password" id="password" name="password" required value="aA12"
+                   pattern="(?=^.{4,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+            >
+
+            <label for="verifyPassword">Verify your password</label>
+            <input type="password" id="verifyPassword" name="verifyPassword" required value="aA12">
+
+            <input type="submit" value="Register">
+    </form>
+</div>
+</body>
+</html>

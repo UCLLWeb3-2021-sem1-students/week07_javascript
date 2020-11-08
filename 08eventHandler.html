@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Handler </title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #special {
+            color: orangered;
+        }
+    </style>
+</head>
+<body>
+<div id="container"><h1 class="title">Five Reasons Not to Go to School</h1>
+    <figure>
+        <img src="images/smiley.png" alt="smiley" height="100">
+    </figure>
+    <ol>
+        <li>Children sent to school are away from home more then …</li>
+        <li>Compassion and kindness are not taught in schools.</li>
+        <li>Schools harbor drugs, violence, rape, sexism, …</li>
+        <li>Learning does not occur in schools.</li>
+        <li>Many important subjects are not taught in schools.</li>
+    </ol>
+</div>
+</body>
+
+<script>
+    // Load all events when page is loaded
+    window.addEventListener("load", initPage, false);
+
+    function initPage() {
+        document.querySelector("figure img").addEventListener("click", changeImage, false);
+        document.getElementsByTagName("ol")[0].addEventListener("click", changeFirstLi, false);
+    }
+
+    function changeImage() {
+        let image = document.querySelector("[alt=smiley]");
+        if (!image.src.match("Sad")) {
+            image.src = "images/smileySad.png";
+            image.height = 200;
+        } else {
+            image.src = "images/smiley.png";
+            image.height = 100;
+        }
+    }
+
+    function changeFirstLi() {
+        let oList = document.getElementsByTagName("ol");
+        console.log(oList); // check element and properties in console
+        oList[0].firstElementChild.id = "special";
+        oList[0].lastElementChild.innerHTML = "All this is nonsense";
+        oList[0].lastElementChild.setAttribute("style", "font-weight: bold");
+    }
+
+</script>
+
+
+</html>

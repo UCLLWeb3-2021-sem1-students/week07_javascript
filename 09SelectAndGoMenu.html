@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select-and-Go Navigation</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div id="container">
+
+    <form action="">
+        <label for="newLocation">Choose your location</label>
+        <select id="newLocation">
+            <option value="" disabled>Choose your location</option>
+            <option value="index.html">Index page</option>
+            <option value="01demolightbulb.html">Light Bulb example</option>
+            <option value="02calculateBMI.html">BMI calculator</option>
+            <option value="03helloWorld.html">Hello World</option>
+        </select>
+        <noscript>
+            <input type="submit" value="Go There">
+        </noscript>
+    </form>
+</div>
+
+<script>
+    /* Causes the page to be uncached, and therefore, when one comes back, the load can happen */
+    window.addEventListener("unload", function () {
+    }, false);
+    /* When the window loads, call the initForm function */
+    window.addEventListener("load", initForm, false);
+
+    /**
+     * Forces the form to choose the first option as selected
+     * Adds change event to select element
+     */
+    function initForm() {
+        document.getElementById("newLocation").selectedIndex = "0";
+        document.getElementById("newLocation").addEventListener("change", jumpPage, false);
+    }
+
+    /**
+     * Navigates to location as read from attribute "value"
+     */
+    function jumpPage() {
+        let newLocation = document.getElementById("newLocation");
+        let newPage = newLocation.options[newLocation.selectedIndex].value;
+        if (newPage !== "") {
+            window.location = newPage;
+        }
+    }
+</script>
+
+</body>
+</html>

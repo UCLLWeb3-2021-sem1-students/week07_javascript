@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Framework</title>
+</head>
+<body>
+<p>Write here HTML.
+    <br>
+    Identify elements with id-attribute.
+</p>
+<script>
+    window.addEventListener("load", initPage, false);
+
+    function initPage() {
+        // assign eventlisteners to elements of DOM
+        document.getElementById("something").addEventListener("someEvent", someFunction, false);
+    }
+</script>
+</body>
+</html>

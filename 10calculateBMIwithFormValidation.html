@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculate your BMI</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/styleFormWithMessages.css">
+</head>
+<body>
+<div id="container" class="small">
+    <form id="form" action="#">
+        <p><label for="height">Your height in cm: </label><input type="number" id="height" required min="100" max="235">
+            <span class="error"> </span>
+        </p>
+        <p>
+            <label for="weight">Your weight in kg: </label><input type="number" id="weight" required min="30" max="730">
+            <span class="error"> </span>
+        </p>
+        <p>
+            <button type="button" id="submit">Calculate my BMI</button>
+            <span class="error" id="error-general"> </span>
+        </p>
+        <p>
+            <a href="#" id="clear">Clear form</a>
+        </p>
+    </form>
+    <p id="result"></p>
+
+</div>
+
+<script>
+    /**
+     * Calculates BMI according to known formula
+     * @param height in cm
+     * @param weight in kg
+     * @returns {number} the requested BMI
+     */
+    function calculateBMI(height, weight) {
+        return Math.round(weight / (height * height) * 10000);
+    }
+
+    /**
+     * Generates the response to the view
+     * @returns {string}: Your BMI is equal to calculated_BMI
+     */
+    function generateResultingString() {
+        let height = document.getElementById("height").value;
+        let weight = document.getElementById("weight").value;
+        return "Your BMI is equal to " + calculateBMI(height, weight) + "."
+    }
+
+
+    /**
+     * Returns true if and only if the input values pass the HTML5-validation
+     * @returns {boolean}
+     */
+    function checkValidityForm() {
+        let inputFields = document.getElementsByTagName("input");
+        for (let field of inputFields) {
+            if (!field.checkValidity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Generates the error messages, if any, based on the information of the HTML5-validation
+     */
+    function showErrorMsg() {
+        // general message right from button
+        document.getElementById("error-general").innerText = "Fill out all fields correctly.";
+        // individual error messages
+        let inputFields = document.getElementsByTagName("input");
+        for (let field of inputFields) {
+            if (!field.checkValidity()) {
+                let fieldId = field.getAttribute("id");
+                let fieldSelector = "form p input#" + fieldId + "+span.error";
+                document.querySelector(fieldSelector).innerText = field.validationMessage;
+            }
+        }
+    }
+
+    /**
+     * Removes all error messages, if any
+     * Should be invoked when user clicks again to "calculate" button
+     */
+    function clearErrorMsg() {
+        let msgs = document.getElementsByClassName("error");
+        let l = msgs.length;
+        for (let i = 0; i < l; i++) {
+            msgs[i].innerText = "";
+        }
+    }
+
+    /**
+     * Removes all values of form elements and text in resulting paragraph
+     */
+    function clearForm() {
+        document.getElementById("height").value = "";
+        document.getElementById("weight").value = "";
+        document.getElementById("result").innerText = "";
+    }
+
+
+    /**
+     * Main method
+     * Should be invoked as click event on "calculate" button
+     */
+    function showBMI() {
+        clearErrorMsg();
+        if (checkValidityForm()) {
+            document.getElementById("result").innerText = generateResultingString();
+        } else {
+            showErrorMsg();
+        }
+    }
+
+    window.addEventListener("load", function () {
+        document.getElementById("submit").addEventListener("click", showBMI);
+        document.getElementById("clear").addEventListener("click", clearForm);
+    }, false);
+
+</script>
+</body>
+</html>
